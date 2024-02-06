@@ -17,8 +17,6 @@ const showColumns = document.querySelector('#showColumns')
 
 function generateCards(data) {
 
-    showColumns.textContent = '';
-
     for (let i = 0; i < data.length; i++) {
 
 
@@ -66,4 +64,52 @@ function generateCards(data) {
     }
 }
 
-generateCards(jobs)
+generateCards(jobs);
+
+
+const selectCategory = document.querySelector('#selectCategory')
+
+selectCategory.addEventListener('change', categoryFilter)
+
+function categoryFilter() {
+
+    const selectedCategory = selectCategory.value;
+    const filteredCategory = [];
+
+    if (selectedCategory === 'All') {
+        showColumns.textContent = '';
+        generateCards(jobs);
+
+    } else {
+        for (let i = 0; i < jobs.length; i++) {
+            if (jobs[i].category === selectedCategory) {
+                showColumns.textContent = '';
+                filteredCategory.push(jobs[i])
+            }
+        }
+    }
+
+    generateCards(filteredCategory)
+}
+
+const selectLocation = document.querySelector('#selectLocation');
+
+selectLocation.addEventListener('change', countryFilter)
+
+function countryFilter() {
+    const selectedLocation = selectLocation.value;
+    const filteredLocation = [];
+
+    if (selectedLocation === 'All') {
+        showColumns.textContent = ''
+        generateCards(jobs);
+    } else {
+        for (let i = 0; i < jobs.length; i++) {
+            if (jobs[i].location === selectedLocation) {
+                showColumns.textContent = ''
+                filteredLocation.push(jobs[i])
+            }
+        }
+    }
+    generateCards(filteredLocation)
+}
